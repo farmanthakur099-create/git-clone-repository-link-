@@ -1,0 +1,99 @@
+<!DOCTYPE html>
+<html lang="hi">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Payout Dashboard - FastPe</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+</head>
+<body class="bg-gray-100 font-sans">
+
+    <nav class="bg-blue-600 p-4 text-white shadow-lg">
+        <div class="container mx-auto flex justify-between items-center">
+            <h1 class="text-xl font-bold tracking-wide">FastPe Payout Panel</h1>
+            <span class="text-sm">Welcome, deepak@gmail.com</span>
+        </div>
+    </nav>
+
+    <div class="container mx-auto mt-8 p-4">
+        <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
+            
+            <div class="bg-white p-6 rounded-lg shadow-md border-t-4 border-blue-500">
+                <h2 class="text-lg font-semibold mb-4 text-gray-700">Add Account / UPI</h2>
+                <form id="payoutForm">
+                    <div class="mb-4">
+                        <label class="block text-sm font-medium text-gray-600">Beneficiary Name</label>
+                        <input type="text" id="name" class="w-full p-2 border rounded mt-1 focus:ring-2 focus:ring-blue-400 outline-none" placeholder="Enter Name" required>
+                    </div>
+                    <div class="mb-4">
+                        <label class="block text-sm font-medium text-gray-600">Account Type</label>
+                        <select id="type" class="w-full p-2 border rounded mt-1 outline-none">
+                            <option value="UPI">UPI ID (VPA)</option>
+                            <option value="Bank">Bank Account</option>
+                        </select>
+                    </div>
+                    <div class="mb-4">
+                        <label class="block text-sm font-medium text-gray-600">Account Details</label>
+                        <input type="text" id="details" class="w-full p-2 border rounded mt-1 focus:ring-2 focus:ring-blue-400 outline-none" placeholder="UPI ID or Account No." required>
+                    </div>
+                    <button type="submit" class="w-full bg-blue-600 text-white p-2 rounded hover:bg-blue-700 transition font-semibold">
+                        Add Beneficiary
+                    </button>
+                </form>
+            </div>
+
+            <div class="md:col-span-2 bg-white p-6 rounded-lg shadow-md border-t-4 border-green-500">
+                <h2 class="text-lg font-semibold mb-4 text-gray-700">Recent Payouts</h2>
+                <div class="overflow-x-auto">
+                    <table class="w-full text-left border-collapse">
+                        <thead>
+                            <tr class="bg-gray-100 border-b">
+                                <th class="p-3 text-sm font-semibold text-gray-600">Name</th>
+                                <th class="p-3 text-sm font-semibold text-gray-600">Details</th>
+                                <th class="p-3 text-sm font-semibold text-gray-600">Type</th>
+                                <th class="p-3 text-sm font-semibold text-gray-600">Status</th>
+                            </tr>
+                        </thead>
+                        <tbody id="payoutTableBody">
+                            <tr class="border-b hover:bg-gray-50">
+                                <td class="p-3 text-sm">Demo User</td>
+                                <td class="p-3 text-sm">user@upi</td>
+                                <td class="p-3 text-sm">UPI</td>
+                                <td class="p-3 text-sm text-green-600 font-bold">Success</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+
+        </div>
+    </div>
+
+    <script>
+        // Form Handling Logic
+        document.getElementById('payoutForm').addEventListener('submit', function(e) {
+            e.preventDefault();
+            
+            const name = document.getElementById('name').value;
+            const type = document.getElementById('type').value;
+            const details = document.getElementById('details').value;
+
+            // New Row Create Karne Ke Liye
+            const tableBody = document.getElementById('payoutTableBody');
+            const newRow = `
+                <tr class="border-b hover:bg-gray-50">
+                    <td class="p-3 text-sm">${name}</td>
+                    <td class="p-3 text-sm">${details}</td>
+                    <td class="p-3 text-sm">${type}</td>
+                    <td class="p-3 text-sm text-yellow-600 font-bold">Pending</td>
+                </tr>
+            `;
+            tableBody.innerHTML += newRow;
+
+            // Form Reset
+            this.reset();
+            alert("Beneficiary Added Successfully!");
+        });
+    </script>
+</body>
+</html>
