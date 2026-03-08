@@ -1,98 +1,473 @@
+// Modern Tech Stack
+Frontend: {
+  Framework: "React 18 + TypeScript",
+  Styling: "Tailwind CSS + Headless UI",
+  State: "Redux Toolkit + RTK Query",
+  Charts: "Recharts / D3.js",
+  Forms: "React Hook Form + Zod"
+}
+
+Backend: {
+  Runtime: "Node.js + Express",
+  Language: "TypeScript",
+  Auth: "JWT + Passport.js + 2FA",
+  Validation: "Joi / Zod",
+  Rate Limiting: "express-rate-limit"
+}
+
+Database: {
+  Primary: "PostgreSQL (Aiven/Neon.tech)",
+  Cache: "Redis (Upstash)",
+  Queue: "BullMQ (for bulk payouts)"
+}
+
+DevOps: {
+  Hosting: "Vercel (Frontend) + Railway (Backend)",
+  Monitoring: "Sentry + LogRocket",
+  CI/CD: "GitHub Actions"
+}
+<!-- login.html - Enterprise Edition -->
 <!DOCTYPE html>
-<html lang="hi">
+<html lang="en">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Payout Dashboard - FastPe</title>
+    <title>Payout Dashboard - Secure Login</title>
     <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
 </head>
-<body class="bg-gray-100 font-sans">
-
-    <nav class="bg-blue-600 p-4 text-white shadow-lg">
-        <div class="container mx-auto flex justify-between items-center">
-            <h1 class="text-xl font-bold tracking-wide">FastPe Payout Panel</h1>
-            <span class="text-sm">Welcome, deepak@gmail.com</span>
+<body class="bg-gradient-to-br from-blue-600 to-indigo-900 min-h-screen flex items-center justify-center">
+    <div class="bg-white/95 backdrop-blur-lg rounded-2xl shadow-2xl w-full max-w-md p-8 m-4">
+        <!-- Header -->
+        <div class="text-center mb-8">
+            <div class="bg-indigo-100 w-20 h-20 rounded-full flex items-center justify-center mx-auto mb-4">
+                <i class="fas fa-shield-alt text-4xl text-indigo-600"></i>
+            </div>
+            <h2 class="text-3xl font-bold text-gray-800">Welcome Back</h2>
+            <p class="text-gray-500 mt-2">Enterprise Payout Dashboard</p>
         </div>
-    </nav>
 
-    <div class="container mx-auto mt-8 p-4">
-        <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
-            
-            <div class="bg-white p-6 rounded-lg shadow-md border-t-4 border-blue-500">
-                <h2 class="text-lg font-semibold mb-4 text-gray-700">Add Account / UPI</h2>
-                <form id="payoutForm">
-                    <div class="mb-4">
-                        <label class="block text-sm font-medium text-gray-600">Beneficiary Name</label>
-                        <input type="text" id="name" class="w-full p-2 border rounded mt-1 focus:ring-2 focus:ring-blue-400 outline-none" placeholder="Enter Name" required>
-                    </div>
-                    <div class="mb-4">
-                        <label class="block text-sm font-medium text-gray-600">Account Type</label>
-                        <select id="type" class="w-full p-2 border rounded mt-1 outline-none">
-                            <option value="UPI">UPI ID (VPA)</option>
-                            <option value="Bank">Bank Account</option>
-                        </select>
-                    </div>
-                    <div class="mb-4">
-                        <label class="block text-sm font-medium text-gray-600">Account Details</label>
-                        <input type="text" id="details" class="w-full p-2 border rounded mt-1 focus:ring-2 focus:ring-blue-400 outline-none" placeholder="UPI ID or Account No." required>
-                    </div>
-                    <button type="submit" class="w-full bg-blue-600 text-white p-2 rounded hover:bg-blue-700 transition font-semibold">
-                        Add Beneficiary
-                    </button>
-                </form>
+        <!-- Login Form -->
+        <form id="loginForm" class="space-y-6">
+            <!-- Email Field -->
+            <div>
+                <label class="block text-sm font-medium text-gray-700 mb-2">
+                    <i class="fas fa-envelope mr-2 text-indigo-500"></i>Email Address
+                </label>
+                <input type="email" 
+                       id="email"
+                       class="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-indigo-500 focus:border-indigo-500 transition"
+                       placeholder="admin@company.com"
+                       required>
             </div>
 
-            <div class="md:col-span-2 bg-white p-6 rounded-lg shadow-md border-t-4 border-green-500">
-                <h2 class="text-lg font-semibold mb-4 text-gray-700">Recent Payouts</h2>
-                <div class="overflow-x-auto">
-                    <table class="w-full text-left border-collapse">
-                        <thead>
-                            <tr class="bg-gray-100 border-b">
-                                <th class="p-3 text-sm font-semibold text-gray-600">Name</th>
-                                <th class="p-3 text-sm font-semibold text-gray-600">Details</th>
-                                <th class="p-3 text-sm font-semibold text-gray-600">Type</th>
-                                <th class="p-3 text-sm font-semibold text-gray-600">Status</th>
-                            </tr>
-                        </thead>
-                        <tbody id="payoutTableBody">
-                            <tr class="border-b hover:bg-gray-50">
-                                <td class="p-3 text-sm">Demo User</td>
-                                <td class="p-3 text-sm">user@upi</td>
-                                <td class="p-3 text-sm">UPI</td>
-                                <td class="p-3 text-sm text-green-600 font-bold">Success</td>
-                            </tr>
-                        </tbody>
-                    </table>
+            <!-- Password Field -->
+            <div>
+                <label class="block text-sm font-medium text-gray-700 mb-2">
+                    <i class="fas fa-lock mr-2 text-indigo-500"></i>Password
+                </label>
+                <div class="relative">
+                    <input type="password" 
+                           id="password"
+                           class="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-indigo-500 focus:border-indigo-500 transition pr-12"
+                           required>
+                    <button type="button" onclick="togglePassword()" class="absolute right-3 top-3 text-gray-400 hover:text-gray-600">
+                        <i class="fas fa-eye" id="toggleIcon"></i>
+                    </button>
                 </div>
             </div>
 
+            <!-- 2FA Field (Conditional) -->
+            <div id="twoFactorField" class="hidden">
+                <label class="block text-sm font-medium text-gray-700 mb-2">
+                    <i class="fas fa-qrcode mr-2 text-indigo-500"></i>2FA Code
+                </label>
+                <input type="text" 
+                       id="twoFactorCode"
+                       class="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-indigo-500 focus:border-indigo-500 transition"
+                       placeholder="Enter 6-digit code"
+                       maxlength="6">
+            </div>
+
+            <!-- Remember Me & Forgot Password -->
+            <div class="flex items-center justify-between">
+                <label class="flex items-center">
+                    <input type="checkbox" class="rounded text-indigo-600 focus:ring-indigo-500">
+                    <span class="ml-2 text-sm text-gray-600">Remember me</span>
+                </label>
+                <a href="#" class="text-sm text-indigo-600 hover:text-indigo-800">Forgot Password?</a>
+            </div>
+
+            <!-- Login Button -->
+            <button type="submit" 
+                    id="loginBtn"
+                    class="w-full bg-indigo-600 hover:bg-indigo-700 text-white font-semibold py-3 px-4 rounded-lg transition duration-200 flex items-center justify-center space-x-2">
+                <span>Secure Login</span>
+                <i class="fas fa-arrow-right"></i>
+            </button>
+
+            <!-- Security Badges -->
+            <div class="flex justify-center space-x-4 pt-4">
+                <div class="flex items-center text-xs text-gray-500">
+                    <i class="fas fa-shield-alt text-green-500 mr-1"></i>
+                    <span>256-bit SSL</span>
+                </div>
+                <div class="flex items-center text-xs text-gray-500">
+                    <i class="fas fa-lock text-green-500 mr-1"></i>
+                    <span>2FA Ready</span>
+                </div>
+                <div class="flex items-center text-xs text-gray-500">
+                    <i class="fas fa-clock text-green-500 mr-1"></i>
+                    <span>Session Timeout</span>
+                </div>
+            </div>
+        </form>
+    </div>
+
+    <script>
+        // Password Toggle
+        function togglePassword() {
+            const password = document.getElementById('password');
+            const icon = document.getElementById('toggleIcon');
+            
+            if (password.type === 'password') {
+                password.type = 'text';
+                icon.classList.remove('fa-eye');
+                icon.classList.add('fa-eye-slash');
+            } else {
+                password.type = 'password';
+                icon.classList.remove('fa-eye-slash');
+                icon.classList.add('fa-eye');
+            }
+        }
+
+        // Advanced Login Handler
+        document.getElementById('loginForm').addEventListener('submit', async (e) => {
+            e.preventDefault();
+            
+            const email = document.getElementById('email').value;
+            const password = document.getElementById('password').value;
+            const loginBtn = document.getElementById('loginBtn');
+            
+            // Show loading state
+            loginBtn.innerHTML = '<i class="fas fa-spinner fa-spin mr-2"></i>Verifying...';
+            loginBtn.disabled = true;
+
+            try {
+                // Simulate API call
+                await new Promise(resolve => setTimeout(resolve, 2000));
+                
+                // Check if 2FA is enabled (simulated)
+                if (email === 'admin@company.com') {
+                    document.getElementById('twoFactorField').classList.remove('hidden');
+                    loginBtn.innerHTML = 'Verify 2FA Code <i class="fas fa-shield-alt ml-2"></i>';
+                    
+                    // Add 2FA verification logic here
+                    const twoFactorCode = document.getElementById('twoFactorCode').value;
+                    if (twoFactorCode && twoFactorCode.length === 6) {
+                        // Success - redirect to dashboard
+                        window.location.href = 'dashboard.html';
+                    }
+                } else {
+                    // Direct login for non-2FA users
+                    window.location.href = 'dashboard.html';
+                }
+            } catch (error) {
+                alert('Login failed. Please try again.');
+            } finally {
+                loginBtn.disabled = false;
+            }
+        });
+
+        // Real-time 2FA input validation
+        document.getElementById('twoFactorCode').addEventListener('input', function(e) {
+            this.value = this.value.replace(/[^0-9]/g, '').slice(0, 6);
+        });
+    </script>
+</body>
+</html>
+<!-- dashboard.html - Complete Payout Management System -->
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Payout Dashboard - Enterprise</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+</head>
+<body class="bg-gray-100">
+    <div class="flex h-screen">
+        <!-- Sidebar -->
+        <div class="w-64 bg-white shadow-lg">
+            <div class="p-6">
+                <h1 class="text-2xl font-bold text-indigo-600 flex items-center">
+                    <i class="fas fa-credit-card mr-2"></i>
+                    PayFlow
+                </h1>
+            </div>
+            
+            <nav class="mt-6">
+                <a href="#" class="flex items-center px-6 py-3 text-indigo-600 bg-indigo-50 border-l-4 border-indigo-600">
+                    <i class="fas fa-home w-5"></i>
+                    <span class="mx-3">Dashboard</span>
+                </a>
+                <a href="#" class="flex items-center px-6 py-3 text-gray-600 hover:bg-gray-50">
+                    <i class="fas fa-users w-5"></i>
+                    <span class="mx-3">Beneficiaries</span>
+                </a>
+                <a href="#" class="flex items-center px-6 py-3 text-gray-600 hover:bg-gray-50">
+                    <i class="fas fa-exchange-alt w-5"></i>
+                    <span class="mx-3">Payouts</span>
+                </a>
+                <a href="#" class="flex items-center px-6 py-3 text-gray-600 hover:bg-gray-50">
+                    <i class="fas fa-history w-5"></i>
+                    <span class="mx-3">Transactions</span>
+                </a>
+                <a href="#" class="flex items-center px-6 py-3 text-gray-600 hover:bg-gray-50">
+                    <i class="fas fa-chart-bar w-5"></i>
+                    <span class="mx-3">Reports</span>
+                </a>
+                <a href="#" class="flex items-center px-6 py-3 text-gray-600 hover:bg-gray-50">
+                    <i class="fas fa-cog w-5"></i>
+                    <span class="mx-3">Settings</span>
+                </a>
+            </nav>
+            
+            <!-- User Profile -->
+            <div class="absolute bottom-0 w-64 p-6 border-t">
+                <div class="flex items-center">
+                    <img src="https://ui-avatars.com/api/?name=Admin+User&background=6366f1&color=fff" class="w-10 h-10 rounded-full">
+                    <div class="ml-3">
+                        <p class="text-sm font-semibold">Admin User</p>
+                        <p class="text-xs text-gray-500">admin@company.com</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Main Content -->
+        <div class="flex-1 overflow-auto">
+            <!-- Top Bar -->
+            <div class="bg-white shadow-sm p-4">
+                <div class="flex justify-between items-center">
+                    <h2 class="text-xl font-semibold">Welcome back, Admin!</h2>
+                    <div class="flex items-center space-x-4">
+                        <div class="relative">
+                            <i class="fas fa-bell text-gray-500 text-xl cursor-pointer"></i>
+                            <span class="absolute -top-1 -right-1 bg-red-500 text-white text-xs rounded-full w-4 h-4 flex items-center justify-center">3</span>
+                        </div>
+                        <div class="flex items-center bg-gray-100 rounded-lg px-4 py-2">
+                            <i class="fas fa-wallet text-indigo-600 mr-2"></i>
+                            <span class="font-semibold">₹ 12,45,678</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Dashboard Content -->
+            <div class="p-6">
+                <!-- Stats Cards -->
+                <div class="grid grid-cols-1 md:grid-cols-4 gap-6 mb-8">
+                    <div class="bg-white rounded-xl shadow-sm p-6">
+                        <div class="flex items-center">
+                            <div class="p-3 bg-blue-100 rounded-full">
+                                <i class="fas fa-wallet text-blue-600 text-xl"></i>
+                            </div>
+                            <div class="ml-4">
+                                <p class="text-gray-500 text-sm">Total Balance</p>
+                                <p class="text-2xl font-bold">₹45.6L</p>
+                                <p class="text-green-500 text-sm">↑ 12%</p>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="bg-white rounded-xl shadow-sm p-6">
+                        <div class="flex items-center">
+                            <div class="p-3 bg-green-100 rounded-full">
+                                <i class="fas fa-check-circle text-green-600 text-xl"></i>
+                            </div>
+                            <div class="ml-4">
+                                <p class="text-gray-500 text-sm">Successful Payouts</p>
+                                <p class="text-2xl font-bold">1,234</p>
+                                <p class="text-green-500 text-sm">↑ 8%</p>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="bg-white rounded-xl shadow-sm p-6">
+                        <div class="flex items-center">
+                            <div class="p-3 bg-yellow-100 rounded-full">
+                                <i class="fas fa-clock text-yellow-600 text-xl"></i>
+                            </div>
+                            <div class="ml-4">
+                                <p class="text-gray-500 text-sm">Pending</p>
+                                <p class="text-2xl font-bold">23</p>
+                                <p class="text-yellow-500 text-sm">5 need attention</p>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="bg-white rounded-xl shadow-sm p-6">
+                        <div class="flex items-center">
+                            <div class="p-3 bg-purple-100 rounded-full">
+                                <i class="fas fa-users text-purple-600 text-xl"></i>
+                            </div>
+                            <div class="ml-4">
+                                <p class="text-gray-500 text-sm">Beneficiaries</p>
+                                <p class="text-2xl font-bold">456</p>
+                                <p class="text-gray-500 text-sm">+12 this week</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Charts Section -->
+                <div class="grid grid-cols-1 lg:grid-cols-2 gap-6 mb-8">
+                    <div class="bg-white rounded-xl shadow-sm p-6">
+                        <h3 class="text-lg font-semibold mb-4">Payout Volume</h3>
+                        <canvas id="payoutChart"></canvas>
+                    </div>
+                    
+                    <div class="bg-white rounded-xl shadow-sm p-6">
+                        <h3 class="text-lg font-semibold mb-4">Recent Transactions</h3>
+                        <div class="space-y-3">
+                            <div class="flex justify-between items-center p-3 hover:bg-gray-50 rounded-lg">
+                                <div class="flex items-center">
+                                    <div class="w-10 h-10 bg-green-100 rounded-full flex items-center justify-center">
+                                        <i class="fas fa-check text-green-600"></i>
+                                    </div>
+                                    <div class="ml-3">
+                                        <p class="font-medium">Rahul Sharma</p>
+                                        <p class="text-sm text-gray-500">UPI Transfer</p>
+                                    </div>
+                                </div>
+                                <div class="text-right">
+                                    <p class="font-semibold">₹25,000</p>
+                                    <p class="text-xs text-gray-500">2 min ago</p>
+                                </div>
+                            </div>
+                            
+                            <div class="flex justify-between items-center p-3 hover:bg-gray-50 rounded-lg">
+                                <div class="flex items-center">
+                                    <div class="w-10 h-10 bg-yellow-100 rounded-full flex items-center justify-center">
+                                        <i class="fas fa-clock text-yellow-600"></i>
+                                    </div>
+                                    <div class="ml-3">
+                                        <p class="font-medium">Priya Patel</p>
+                                        <p class="text-sm text-gray-500">Bank Transfer</p>
+                                    </div>
+                                </div>
+                                <div class="text-right">
+                                    <p class="font-semibold">₹1,20,000</p>
+                                    <p class="text-xs text-gray-500">Pending</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Quick Payout Form -->
+                <div class="bg-white rounded-xl shadow-sm p-6 mb-8">
+                    <h3 class="text-lg font-semibold mb-4">Quick Payout</h3>
+                    <div class="grid grid-cols-1 md:grid-cols-3 gap-4">
+                        <select class="border rounded-lg px-4 py-2">
+                            <option>Select Beneficiary</option>
+                            <option>Rahul Sharma - ****1234</option>
+                            <option>Priya Patel - ****5678</option>
+                        </select>
+                        <input type="number" placeholder="Amount (₹)" class="border rounded-lg px-4 py-2">
+                        <button class="bg-indigo-600 hover:bg-indigo-700 text-white px-6 py-2 rounded-lg flex items-center justify-center">
+                            <i class="fas fa-send mr-2"></i> Send Payment
+                        </button>
+                    </div>
+                </div>
+
+                <!-- Transactions Table -->
+                <div class="bg-white rounded-xl shadow-sm overflow-hidden">
+                    <div class="p-6 border-b">
+                        <h3 class="text-lg font-semibold">Transaction History</h3>
+                    </div>
+                    <div class="overflow-x-auto">
+                        <table class="w-full">
+                            <thead class="bg-gray-50">
+                                <tr>
+                                    <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase">ID</th>
+                                    <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase">Beneficiary</th>
+                                    <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase">Amount</th>
+                                    <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase">Status</th>
+                                    <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase">Date</th>
+                                    <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase">Action</th>
+                                </tr>
+                            </thead>
+                            <tbody class="divide-y divide-gray-200">
+                                <tr class="hover:bg-gray-50">
+                                    <td class="px-6 py-4 text-sm">#PAY001</td>
+                                    <td class="px-6 py-4">
+                                        <div>
+                                            <p class="font-medium">Rahul Sharma</p>
+                                            <p class="text-xs text-gray-500">ICICI Bank ****1234</p>
+                                        </div>
+                                    </td>
+                                    <td class="px-6 py-4 text-sm font-medium">₹25,000</td>
+                                    <td class="px-6 py-4">
+                                        <span class="px-2 py-1 bg-green-100 text-green-800 text-xs rounded-full">Success</span>
+                                    </td>
+                                    <td class="px-6 py-4 text-sm">15 Jan 2024, 10:30 AM</td>
+                                    <td class="px-6 py-4">
+                                        <button class="text-indigo-600 hover:text-indigo-900 text-sm">Download</button>
+                                    </td>
+                                </tr>
+                                <tr class="hover:bg-gray-50">
+                                    <td class="px-6 py-4 text-sm">#PAY002</td>
+                                    <td class="px-6 py-4">
+                                        <div>
+                                            <p class="font-medium">Priya Patel</p>
+                                            <p class="text-xs text-gray-500">HDFC Bank ****5678</p>
+                                        </div>
+                                    </td>
+                                    <td class="px-6 py-4 text-sm font-medium">₹1,20,000</td>
+                                    <td class="px-6 py-4">
+                                        <span class="px-2 py-1 bg-yellow-100 text-yellow-800 text-xs rounded-full">Pending</span>
+                                    </td>
+                                    <td class="px-6 py-4 text-sm">15 Jan 2024, 09:45 AM</td>
+                                    <td class="px-6 py-4">
+                                        <button class="text-indigo-600 hover:text-indigo-900 text-sm">Retry</button>
+                                    </td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
         </div>
     </div>
 
     <script>
-        // Form Handling Logic
-        document.getElementById('payoutForm').addEventListener('submit', function(e) {
-            e.preventDefault();
-            
-            const name = document.getElementById('name').value;
-            const type = document.getElementById('type').value;
-            const details = document.getElementById('details').value;
-
-            // New Row Create Karne Ke Liye
-            const tableBody = document.getElementById('payoutTableBody');
-            const newRow = `
-                <tr class="border-b hover:bg-gray-50">
-                    <td class="p-3 text-sm">${name}</td>
-                    <td class="p-3 text-sm">${details}</td>
-                    <td class="p-3 text-sm">${type}</td>
-                    <td class="p-3 text-sm text-yellow-600 font-bold">Pending</td>
-                </tr>
-            `;
-            tableBody.innerHTML += newRow;
-
-            // Form Reset
-            this.reset();
-            alert("Beneficiary Added Successfully!");
+        // Initialize Chart
+        const ctx = document.getElementById('payoutChart').getContext('2d');
+        new Chart(ctx, {
+            type: 'line',
+            data: {
+                labels: ['Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat', 'Sun'],
+                datasets: [{
+                    label: 'Payouts (₹)',
+                    data: [12000, 19000, 15000, 25000, 22000, 30000, 28000],
+                    borderColor: '#6366f1',
+                    backgroundColor: 'rgba(99, 102, 241, 0.1)',
+                    tension: 0.4,
+                    fill: true
+                }]
+            },
+            options: {
+                responsive: true,
+                plugins: {
+                    legend: {
+                        display: false
+                    }
+                }
+            }
         });
     </script>
 </body>
